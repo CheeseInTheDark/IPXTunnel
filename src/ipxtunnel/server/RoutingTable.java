@@ -1,4 +1,4 @@
-package ipxtunnelserver;
+package ipxtunnel.server;
 
 import java.net.InetAddress;
 import java.util.ArrayList;

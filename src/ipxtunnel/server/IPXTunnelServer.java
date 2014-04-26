@@ -1,4 +1,4 @@
-package ipxtunnelserver;
+package ipxtunnel.server;
 import java.io.*;
 import java.util.*;
 import java.net.*;
