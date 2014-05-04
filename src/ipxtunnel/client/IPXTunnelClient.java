@@ -1,5 +1,7 @@
 package ipxtunnel.client;
 
+import ipxtunnel.client.broadcasts.BroadcastListener;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

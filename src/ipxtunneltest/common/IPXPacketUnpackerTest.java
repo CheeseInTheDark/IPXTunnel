@@ -51,6 +51,17 @@ public class IPXPacketUnpackerTest
         assertEquals(expectedPort, port);
     }
     
+    @Test
+    public void testIPXPacketUnpackerReturnsDestinationPort()
+    {
+    	DatagramPacket packet = createPacket(localMessage);
+    	
+    	int port = unpacker.extractDestinationPort(packet);
+    	
+    	int expectedPort = 15;
+    	assertEquals(expectedPort, port);
+    }
+    
     private DatagramPacket createPacket(byte[] message)
     {
         return new DatagramPacket(message, message.length);

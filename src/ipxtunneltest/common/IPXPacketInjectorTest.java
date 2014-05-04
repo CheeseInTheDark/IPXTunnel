@@ -19,15 +19,23 @@ public class IPXPacketInjectorTest {
 	@Before
 	public void setUp()
 	{
-		byte[] message = new byte[0];
-		packet = new DatagramPacket(message, 0);
-		
+		packet = constructPacket();
 		injector = new IPXPacketInjector(packet);
+	}
+	
+	private DatagramPacket constructPacket()
+	{
+		return new DatagramPacket(new byte[]{}, 0);
 	}
 	
 	@Test
 	public void testIPXPacketInjectorShouldAddRoutingInformationOnConstruction()
 	{
+		DatagramPacket packet = constructPacket();
+		assertEquals(0, packet.getLength());
+		
+		new IPXPacketInjector(packet);
+		
 		assertEquals(9, packet.getLength());
 	}
 	
@@ -38,7 +46,7 @@ public class IPXPacketInjectorTest {
 		injector.injectSender(sender);
 		
 		byte[] expectedMessage = InetAddress.getByName("127.0.0.1").getAddress();
-		assertArrayEquals(expectedMessage, Arrays.copyOf(packet.getData(), packet.getLength()));
+		assertArrayEquals(expectedMessage, packetSegment(8, 4));
 	}
 	
 	@Test
@@ -48,7 +56,33 @@ public class IPXPacketInjectorTest {
 		injector.injectSenderPort(port);
 		
 		byte[] expectedMessage = {0x30, 0x21};
-		assertArrayEquals(expectedMessage, Arrays.copyOfRange(packet.getData(), packet.getLength() - 5, packet.getLength() - 3));
+		assertArrayEquals(expectedMessage, packetSegment(4, 2));
 	}
 
+	@Test
+	public void testIPXPacketInjectorCanInjectDestinationPort()
+	{
+		int port = 12320;
+		injector.injectDestinationPort(port);
+		
+		byte[] expectedMessage = {0x30, 0x20};
+		assertArrayEquals(expectedMessage, packetSegment(2, 0));
+	}
+	
+	@Test
+	public void testIPXPacketInjectorCanInjectPacketType()
+	{
+		byte broadcastType = 0x00;
+		injector.injectPacketType(broadcastType);
+		
+		byte expectedType = 0x00;
+		assertEquals(expectedType, packetSegment(9, 8)[0]);
+	}
+	
+	private byte[] packetSegment(int startOffset, int endOffset)
+	{
+		return Arrays.copyOfRange(
+				packet.getData(), packet.getLength() - startOffset,
+				packet.getLength() - endOffset);
+	}
 }

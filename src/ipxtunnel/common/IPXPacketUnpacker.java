@@ -21,7 +21,23 @@ public class IPXPacketUnpacker
 
     public int extractSenderPort(DatagramPacket packet)
     {
-        return 12321;
+        int length = packet.getLength();
+        byte[] portBytes = Arrays.copyOfRange(packet.getData(), length - 4, length - 2);
+        
+        return portFromBytes(portBytes);
     }
+
+	public int extractDestinationPort(DatagramPacket packet)
+	{
+        int length = packet.getLength();
+        byte[] portBytes = Arrays.copyOfRange(packet.getData(), length - 2, length);
+        
+        return portFromBytes(portBytes);
+	}
+	
+	private int portFromBytes(byte[] portBytes)
+	{
+		return ((portBytes[0] << 8) & 0x0000FF00) | (portBytes[1] & 0x000000FF);
+	}
     
 }
