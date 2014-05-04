@@ -1,4 +1,4 @@
-package ipxtunneltest.client;
+package ipxtunneltest.client.broadcasts;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;

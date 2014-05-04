@@ -1,4 +1,4 @@
-package ipxtunneltest.client;
+package ipxtunneltest.client.broadcasts;
 
 public class BroadcastListenerTest
 {
