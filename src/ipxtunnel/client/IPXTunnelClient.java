@@ -15,12 +15,12 @@ import java.util.HashMap;
 public class IPXTunnelClient
 {
 	static int networkInterface = 0;
-	static HashMap<Integer, DatagramSocket> ipxSockets = new HashMap<Integer, DatagramSocket>();
-	static int MAX_BUFFER_SIZE = 4096;
+	public static HashMap<Integer, DatagramSocket> ipxSockets = new HashMap<Integer, DatagramSocket>();
+	public static int MAX_BUFFER_SIZE = 4096;
 	static InetAddress broadcastAddress;
-	static InetAddress serverAddress = null;
+	public static InetAddress serverAddress = null;
 	static int serverPort;
-	static int tunnelPort;
+	public static int tunnelPort;
 	
 	static private HashMap<Integer, WrapperListener> initialWrappers = new HashMap<Integer, WrapperListener>();
 	
