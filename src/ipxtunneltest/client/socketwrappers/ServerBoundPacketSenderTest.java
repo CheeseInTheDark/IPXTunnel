@@ -1,8 +1,8 @@
-package ipxtunneltest.client.broadcasts;
+package ipxtunneltest.client.socketwrappers;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import ipxtunnel.client.broadcasts.BroadcastToServerSender;
+import ipxtunnel.client.socketwrappers.ServerBoundPacketSender;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -10,16 +10,17 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 import org.junit.Test;
+
 import static org.mockito.Matchers.*;
 
-public class BroadcastToServerSenderTest
+public class ServerBoundPacketSenderTest
 {
 
     @Test
-    public void testBroadcastSenderSendsToServer() throws IOException
+    public void testServerBoundPacketSenderSendsToServer() throws IOException
     {
         DatagramSocket serverSocket = mock(DatagramSocket.class);
-        BroadcastToServerSender sender = new BroadcastToServerSender(serverSocket, InetAddress.getByName("192.168.1.100"), 123);
+        ServerBoundPacketSender sender = new ServerBoundPacketSender(serverSocket, InetAddress.getByName("192.168.1.100"), 123);
         DatagramPacket packet = new DatagramPacket(new byte[] {0x12}, 1);
         
         sender.send(packet);

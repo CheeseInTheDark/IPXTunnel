@@ -1,23 +1,23 @@
-package ipxtunneltest.client.broadcasts;
+package ipxtunneltest.client.middleman;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
-import ipxtunnel.client.broadcasts.BroadcastMiddleMan;
-import ipxtunnel.client.broadcasts.BroadcastThread;
+import ipxtunnel.client.middleman.MiddleMan;
+import ipxtunnel.client.middleman.MiddleManThread;
 
 import org.junit.Test;
 
-public class BroadcastThreadTest
+public class MiddlemanThreadTest
 {
 
     @Test
     public void testThreadOnlyExitsOnInterrupt() throws InterruptedException
     {
-        BroadcastMiddleMan middleMan = mock(BroadcastMiddleMan.class);
-        BroadcastThread thread = new BroadcastThread(middleMan);
+        MiddleMan middleMan = mock(MiddleMan.class);
+        MiddleManThread thread = new MiddleManThread(middleMan);
         
         thread.start();
         
@@ -33,8 +33,8 @@ public class BroadcastThreadTest
     @Test
     public void testThreadHandlesOnePacket() throws IOException, InterruptedException
     {
-        BroadcastMiddleMan middleMan = mock(BroadcastMiddleMan.class);
-        BroadcastThread thread = new BroadcastThread(middleMan);
+        MiddleMan middleMan = mock(MiddleMan.class);
+        MiddleManThread thread = new MiddleManThread(middleMan);
         
         thread.start();
         thread.interrupt();

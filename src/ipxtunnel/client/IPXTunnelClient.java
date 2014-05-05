@@ -1,6 +1,6 @@
 package ipxtunnel.client;
 
-import ipxtunnel.client.broadcasts.BroadcastThread;
+import ipxtunnel.client.middleman.MiddleManThread;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -79,7 +79,7 @@ public class IPXTunnelClient
 			TunnelListener tunnelListener = new TunnelListener(broadcastSocket, tunnelSocket);
 			tunnelListener.start();
 			
-			BroadcastThread wrapperListener = new BroadcastThread(broadcastSocket, tunnelSocket);
+			MiddleManThread wrapperListener = new MiddleManThread(broadcastSocket, tunnelSocket);
 			wrapperListener.start();
 			
 			ControlThread controlThread = new ControlThread(serverSocket, tunnelSocket, serverPort, serverAddress);

@@ -1,4 +1,4 @@
-package ipxtunnel.client.broadcasts;
+package ipxtunnel.client.broadcastpackets;
 
 import ipxtunnel.common.IPXPacketInjector;
 

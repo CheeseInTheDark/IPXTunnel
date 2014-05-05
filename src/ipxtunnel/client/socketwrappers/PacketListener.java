@@ -1,16 +1,17 @@
-package ipxtunnel.client.broadcasts;
+package ipxtunnel.client.socketwrappers;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.MulticastSocket;
 
-public class BroadcastReceiver
+public class PacketListener
 {
-	private MulticastSocket broadcastSocket;
+	private DatagramSocket broadcastSocket;
 	
-	public BroadcastReceiver(MulticastSocket broadcastSocket)
+	public PacketListener(DatagramSocket socket)
 	{
-		this.broadcastSocket = broadcastSocket;
+		this.broadcastSocket = socket;
 	}
 
 	public DatagramPacket listen() throws IOException

@@ -1,4 +1,4 @@
-package ipxtunnel.client.broadcasts;
+package ipxtunnel.client.middleman;
 
 import ipxtunnel.client.IPXTunnelClient;
 
@@ -8,18 +8,18 @@ import java.net.DatagramSocket;
 import java.net.MulticastSocket;
 import java.util.Arrays;
 
-public class BroadcastThread extends Thread implements Runnable 
+public class MiddleManThread extends Thread implements Runnable 
 {
 	private boolean finished = false;
 	
-	public BroadcastThread(MulticastSocket broadcastSocket, 
+	public MiddleManThread(MulticastSocket broadcastSocket, 
 			DatagramSocket tunnelSocket)
 	{
 	}
 
-	private BroadcastMiddleMan middleMan;
+	private MiddleMan middleMan;
 	
-	public BroadcastThread(BroadcastMiddleMan middleMan)
+	public MiddleManThread(MiddleMan middleMan)
     {
 	    this.middleMan = middleMan;
     }
