@@ -1,8 +1,7 @@
-package ipxtunneltest.client.directpackets;
+package ipxtunneltest.client.injectors;
 
-import static org.junit.Assert.*;
-import ipxtunnel.client.broadcastpackets.BroadcastInjector;
-import ipxtunnel.client.directpackets.DirectPacketInjector;
+import static org.junit.Assert.assertArrayEquals;
+import ipxtunnel.client.injectors.DirectPacketInjector;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;

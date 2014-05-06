@@ -1,6 +1,7 @@
-package ipxtunneltest.client.broadcastpackets;
+package ipxtunneltest.client.injectors;
 
-import ipxtunnel.client.broadcastpackets.BroadcastInjector;
+import static org.junit.Assert.assertArrayEquals;
+import ipxtunnel.client.injectors.BroadcastInjector;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -8,8 +9,6 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class BroadcastInjectorTest
 {

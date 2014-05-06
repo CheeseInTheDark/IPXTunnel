@@ -1,4 +1,4 @@
-package ipxtunnel.client.directpackets;
+package ipxtunnel.client.injectors;
 
 import ipxtunnel.common.IPXPacketInjector;
 

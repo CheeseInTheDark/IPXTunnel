@@ -1,12 +1,13 @@
 package ipxtunneltest.client.middleman;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-import java.io.IOException;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManThread;
+
+import java.io.IOException;
 
 import org.junit.Test;
 

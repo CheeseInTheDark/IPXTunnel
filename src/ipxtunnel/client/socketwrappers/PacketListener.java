@@ -3,7 +3,6 @@ package ipxtunnel.client.socketwrappers;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.MulticastSocket;
 
 public class PacketListener
 {

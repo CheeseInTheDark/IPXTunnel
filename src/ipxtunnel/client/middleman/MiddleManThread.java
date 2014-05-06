@@ -1,12 +1,8 @@
 package ipxtunnel.client.middleman;
 
-import ipxtunnel.client.IPXTunnelClient;
-
 import java.io.IOException;
-import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.MulticastSocket;
-import java.util.Arrays;
 
 public class MiddleManThread extends Thread implements Runnable 
 {
@@ -29,19 +25,24 @@ public class MiddleManThread extends Thread implements Runnable
 	{
 	    do
 	    {
-	        try
-            {
-                middleMan.handleOnePacket();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
+	        handlePacket();
 	    }
 	    while (!interrupted());
 	    
 	    finished = true;
 	    notify();
+	}
+	
+	private void handlePacket()
+	{
+        try
+        {
+            middleMan.handleOnePacket();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 	}
 
     public synchronized void waitForDeath() throws InterruptedException

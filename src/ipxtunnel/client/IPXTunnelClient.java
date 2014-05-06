@@ -76,7 +76,7 @@ public class IPXTunnelClient
 			
 			registerWithServer(serverSocket, tunnelSocket, serverPort, serverAddress, tunnelSocket.getLocalPort());
 			
-			TunnelListener tunnelListener = new TunnelListener(broadcastSocket, tunnelSocket);
+			TunnelListenerThread tunnelListener = new TunnelListenerThread(tunnelSocket);
 			tunnelListener.start();
 			
 			MiddleManThread wrapperListener = new MiddleManThread(broadcastSocket, tunnelSocket);

@@ -4,21 +4,15 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
-import java.util.Enumeration;
 
-public class TunnelListener extends Thread implements Runnable
+public class TunnelListenerThread extends Thread implements Runnable
 {
-	private MulticastSocket broadcastSocket;
 	private DatagramSocket tunnelSocket;
 	
-	public TunnelListener(MulticastSocket ipxSocket, DatagramSocket tunnelSocket)
+	public TunnelListenerThread(DatagramSocket tunnelSocket)
 	{
-		this.broadcastSocket = ipxSocket;
 		this.tunnelSocket = tunnelSocket;
 	}
 	
