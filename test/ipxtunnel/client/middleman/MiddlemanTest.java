@@ -1,4 +1,4 @@
-package ipxtunneltest.client.middleman;
+package ipxtunnel.client.middleman;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;

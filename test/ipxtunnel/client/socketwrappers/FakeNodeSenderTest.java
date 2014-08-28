@@ -1,4 +1,4 @@
-package ipxtunneltest.client.socketwrappers;
+package ipxtunnel.client.socketwrappers;
 
 import static org.mockito.Mockito.*;
 import ipxtunnel.client.socketwrappers.FakeNodeSender;

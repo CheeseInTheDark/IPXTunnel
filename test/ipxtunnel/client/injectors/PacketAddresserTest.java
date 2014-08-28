@@ -1,4 +1,4 @@
-package ipxtunneltest.client.injectors;
+package ipxtunnel.client.injectors;
 
 import static org.junit.Assert.*;
 import ipxtunnel.client.injectors.PacketAddresser;

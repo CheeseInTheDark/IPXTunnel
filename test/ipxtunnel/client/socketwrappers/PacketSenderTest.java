@@ -1,4 +1,4 @@
-package ipxtunneltest.client.socketwrappers;
+package ipxtunnel.client.socketwrappers;
 
 import static org.mockito.Matchers.refEq;
 import static org.mockito.Mockito.mock;

@@ -1,4 +1,4 @@
-package ipxtunneltest.common;
+package ipxtunnel.common;
 
 import static org.junit.Assert.*;
 import ipxtunnel.common.IPXPacketInjector;

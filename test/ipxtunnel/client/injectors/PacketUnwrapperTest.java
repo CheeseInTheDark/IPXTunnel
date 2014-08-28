@@ -1,4 +1,4 @@
-package ipxtunneltest.client.injectors;
+package ipxtunnel.client.injectors;
 
 import static org.junit.Assert.*;
 
@@ -11,21 +11,28 @@ import ipxtunnel.client.injectors.PacketUnwrapper;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.*;
 public class PacketUnwrapperTest
 {
+	@Mock
     private PacketAddresser addresser;
+	
+	@Mock
     private PacketStripper stripper;
+	
+	@InjectMocks
     private PacketUnwrapper unwrapper;
+	
     private DatagramPacket packet;
 
     @Before
     public void setUp()
     {
-        addresser = mock(PacketAddresser.class);
-        stripper = mock(PacketStripper.class);    
-        unwrapper = new PacketUnwrapper(addresser, stripper);
+    	MockitoAnnotations.initMocks(this);
         packet = new DatagramPacket(new byte[9], 9);
     }
 

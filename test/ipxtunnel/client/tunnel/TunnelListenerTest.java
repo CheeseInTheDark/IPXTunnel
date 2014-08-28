@@ -1,4 +1,4 @@
-package ipxtunneltest.client.tunnel;
+package ipxtunnel.client.tunnel;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -13,6 +13,7 @@ import ipxtunnel.client.tunnel.TunnelListener;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -27,13 +28,13 @@ public class TunnelListenerTest
     @Mock
     private PacketUnwrapper unwrapper;
     
+    @InjectMocks
     private TunnelListener listener;
     
     @Before
     public void setUp()
     {
         MockitoAnnotations.initMocks(this);
-        listener = new TunnelListener(receiver, unwrapper, sender);
     }
     
     @Test
@@ -64,5 +65,7 @@ public class TunnelListenerTest
         when(receiver.listen()).thenReturn(packet);
         
         listener.handleOnePacket();
+        
+        verify(sender).send(packet);
     }
 }

@@ -1,4 +1,4 @@
-package ipxtunneltest.client.socketwrappers;
+package ipxtunnel.client.socketwrappers;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Matchers.any;
