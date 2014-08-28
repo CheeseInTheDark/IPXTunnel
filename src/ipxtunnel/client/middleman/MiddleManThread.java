@@ -6,8 +6,6 @@ import java.net.MulticastSocket;
 
 public class MiddleManThread extends Thread implements Runnable 
 {
-	private boolean finished = false;
-	
 	public MiddleManThread(MulticastSocket broadcastSocket, 
 			DatagramSocket tunnelSocket)
 	{
@@ -29,7 +27,6 @@ public class MiddleManThread extends Thread implements Runnable
 	    }
 	    while (!interrupted());
 	    
-	    finished = true;
 	    notify();
 	}
 	
@@ -47,7 +44,7 @@ public class MiddleManThread extends Thread implements Runnable
 
     public synchronized void waitForDeath() throws InterruptedException
     {
-        while (!finished)
+        while (isAlive())
         {
             wait();
         }

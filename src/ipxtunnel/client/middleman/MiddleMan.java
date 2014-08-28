@@ -8,11 +8,11 @@ import java.net.DatagramPacket;
 
 public class MiddleMan
 {
-    PacketModifier modifier;
+    PacketHandler modifier;
     PacketSender sender;
     PacketListener receiver;
     
-    public MiddleMan(PacketSender sender, PacketModifier modifier, PacketListener receiver)
+    public MiddleMan(PacketSender sender, PacketHandler modifier, PacketListener receiver)
     {
         this.receiver = receiver;
         this.modifier = modifier;

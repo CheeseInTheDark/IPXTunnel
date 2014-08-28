@@ -4,7 +4,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import ipxtunnel.client.middleman.MiddleMan;
-import ipxtunnel.client.middleman.PacketModifier;
+import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketSender;
 
@@ -19,7 +19,7 @@ public class MiddlemanTest
     @Test
     public void testMiddlemanGuidesPackets() throws IOException
     {
-        PacketModifier injector = mock(PacketModifier.class);
+        PacketHandler injector = mock(PacketHandler.class);
         PacketListener receiver = mock(PacketListener.class);
         PacketSender sender = mock(PacketSender.class);
         MiddleMan middleMan = new MiddleMan(sender, injector, receiver);
