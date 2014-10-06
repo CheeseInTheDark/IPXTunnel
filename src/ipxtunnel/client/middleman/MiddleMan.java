@@ -1,28 +1,24 @@
 package ipxtunnel.client.middleman;
 
 import ipxtunnel.client.socketwrappers.PacketListener;
-import ipxtunnel.client.socketwrappers.PacketSender;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 
 public class MiddleMan
 {
-    PacketHandler modifier;
-    PacketSender sender;
-    PacketListener receiver;
-    
-    public MiddleMan(PacketSender sender, PacketHandler modifier, PacketListener receiver)
-    {
-        this.receiver = receiver;
-        this.modifier = modifier;
-        this.sender = sender;
-    }
-
-    public void handleOnePacket() throws IOException
-    {
-        DatagramPacket packet = receiver.listen();
-        modifier.modify(packet);
-        sender.send(packet);
-    }
+	private PacketListener listener;
+	private PacketHandler handler;
+	
+	public MiddleMan(PacketListener listener, PacketHandler handler)
+	{
+		this.listener = listener;
+		this.handler = handler;
+	}
+	
+	public void handleOnePacket() throws IOException 
+	{
+		DatagramPacket packet = listener.listen();
+		handler.handle(packet);
+	}
 }

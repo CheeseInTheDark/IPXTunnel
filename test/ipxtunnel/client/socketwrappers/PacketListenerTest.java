@@ -4,13 +4,17 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
+import ipxtunnel.answers.PacketAnswer;
 import ipxtunnel.client.socketwrappers.PacketListener;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
@@ -21,38 +25,31 @@ public class PacketListenerTest {
 	@Mock
 	private DatagramSocket socket;
 	
-	@Test
-	public void testBroadcastReceiverReceivesPackets() throws IOException
+	@InjectMocks
+	private PacketListener listener;
+	
+	@Before
+	public void setup() 
 	{
 		MockitoAnnotations.initMocks(this);
-		PacketListener listener = new PacketListener(socket);
-		
+	}
+	
+	@Test
+	public void testListenerReceivesPackets() throws IOException
+	{
 		listener.listen();
 		
 		verify(socket).receive(any(DatagramPacket.class));
 	}
 
 	@Test
-	public void testBroadcastListenerReturnsReceivedPacket() throws IOException
+	public void testPacketListenerReturnsReceivedPacket() throws IOException
 	{
-		MockitoAnnotations.initMocks(this);
-		PacketListener listener = new PacketListener(socket);
-		
-		DatagramPacket packet = new DatagramPacket(new byte[]{0x00, 0x01}, 2);
-		doAnswer(new PacketAnswer()).when(socket).receive(any(DatagramPacket.class));
+		DatagramPacket packet = new DatagramPacket(new byte[]{0x00, 0x01}, 2, InetAddress.getLocalHost(), 123);
+		doAnswer(new PacketAnswer(packet)).when(socket).receive(any(DatagramPacket.class));
 		
 		DatagramPacket receivedPacket = listener.listen();
+		
 		assertArrayEquals(packet.getData(), receivedPacket.getData());
-	}
-	
-	private class PacketAnswer implements Answer<Void>
-	{
-        @Override
-        public Void answer(InvocationOnMock invocation)
-        {
-            DatagramPacket packet = (DatagramPacket) invocation.getArguments()[0];
-            packet.setData(new byte[]{0x00, 0x01});
-            return null;
-        }	    
 	}
 }

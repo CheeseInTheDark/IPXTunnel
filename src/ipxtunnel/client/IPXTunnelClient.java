@@ -63,8 +63,6 @@ public class IPXTunnelClient
 			System.exit(1);
 		}
 		
-		networkInterface = Integer.parseInt(args[4]);
-		
 		try
 		{
 			MulticastSocket broadcastSocket = new MulticastSocket(broadcastPort);

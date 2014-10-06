@@ -6,17 +6,17 @@ import java.net.DatagramSocket;
 
 public class PacketListener
 {
-	private DatagramSocket broadcastSocket;
+	private DatagramSocket socket;
 	
 	public PacketListener(DatagramSocket socket)
 	{
-		this.broadcastSocket = socket;
+		this.socket = socket;
 	}
 
 	public DatagramPacket listen() throws IOException
 	{
 		DatagramPacket packet = new DatagramPacket(new byte[0], 0);
-		broadcastSocket.receive(packet);
+		socket.receive(packet);
 		return packet;
 	}
 

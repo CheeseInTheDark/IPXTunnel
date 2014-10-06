@@ -24,7 +24,7 @@ public class MiddleManThread extends Thread implements Runnable
 	    do
 	    {
 	        handlePacket();
-	    }
+	    } 
 	    while (!interrupted());
 	    
 	    notify();
