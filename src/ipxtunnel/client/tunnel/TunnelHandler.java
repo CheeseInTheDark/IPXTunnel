@@ -7,11 +7,13 @@ import ipxtunnel.client.middleman.PacketHandler;
 public class TunnelHandler implements PacketHandler
 {
 
+    public TunnelHandler(NodeDelegates nodeDelegates)
+    {
+    }
+
     @Override
     public void handle(DatagramPacket packet)
     {
-        // TODO Auto-generated method stub
         
     }
-
 }
