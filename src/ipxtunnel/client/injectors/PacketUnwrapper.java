@@ -6,15 +6,9 @@ import java.net.UnknownHostException;
 public class PacketUnwrapper
 {
 
-    PacketAddresser addresser;
-    PacketStripper stripper;
+    private PacketAddresser addresser = new PacketAddresser();
+    private PacketStripper stripper = new PacketStripper();
     
-    public PacketUnwrapper(PacketAddresser addresser, PacketStripper stripper)
-    {
-        this.addresser = addresser;
-        this.stripper = stripper;
-    }
-
     public void unwrap(DatagramPacket packet) throws UnknownHostException
     {
         addresser.address(packet);

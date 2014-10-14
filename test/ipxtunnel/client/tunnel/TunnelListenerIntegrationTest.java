@@ -5,7 +5,9 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
@@ -45,8 +47,11 @@ public class TunnelListenerIntegrationTest
     @Mock
     private NodeDelegates nodeDelegates;
     
-    private InetAddress localNodeAddress;
-    private int localNodePort;
+    private InetAddress firstLocalNodeAddress;
+    private int firstLocalNodePort;
+    
+    private InetAddress secondLocalNodeAddress;
+    private int secondLocalNodePort;
 
     private TunnelListenerThreadFactory tunnelListenerThreadFactory = new TunnelListenerThreadFactory();
     
@@ -59,7 +64,7 @@ public class TunnelListenerIntegrationTest
     private DatagramPacket packetFromFirstDelegate;
     private DatagramPacket packetFromSecondDelegate;
     
-    MiddleManThread underTest;
+    private MiddleManThread underTest;
     
     @Before
     public void setup() throws Exception
@@ -71,12 +76,13 @@ public class TunnelListenerIntegrationTest
       
         PropertiesSingleton.initialize(rawArguments);
         
-        localNodeAddress = InetAddress.getByName("1.1.1.1");
-        localNodePort = 1;
+        firstLocalNodeAddress = InetAddress.getByName("1.1.1.1");
+        firstLocalNodePort = 1;
+        
+        secondLocalNodeAddress = InetAddress.getByName("1.1.1.2");
+        secondLocalNodePort = 2;
         
         initializePackets();
-        
-        stopTestAfterNodeDelegatesAreCalled();
         
         doAnswer(new PacketAnswer(packetFromFirstDelegate))
         .doAnswer(new PacketAnswer(packetFromSecondDelegate))
@@ -85,15 +91,15 @@ public class TunnelListenerIntegrationTest
     
     private void stopTestAfterNodeDelegatesAreCalled()
     {
-        doAnswer(new EndOfThreadTestAnswer<DatagramPacket>(underTest)).when(nodeDelegate).send(argThat(is(packetWithDestination(localNodeAddress, localNodePort))));
+        doAnswer(new EndOfThreadTestAnswer<DatagramPacket>(underTest)).when(anotherNodeDelegate).send(any(DatagramPacket.class));
     }
     
     private void initializePackets() throws UnknownHostException
     {
-        byte[] firstData = {0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x01, 0x00, 0x02, 0x0F};
+        byte[] firstData = {0x0F, 0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x01, 0x00, 0x02};
         packetFromFirstDelegate = buildPacket(firstData);
         
-        byte[] secondData = {0x00, 0x01, 0x01, 0x01, 0x01, 0x00, 0x01, 0x00, 0x04, 0x0F};
+        byte[] secondData = {0x0F, 0x00, 0x01, 0x01, 0x01, 0x02, 0x00, 0x02, 0x00, 0x04};
         packetFromSecondDelegate = buildPacket(secondData);      
     }
     
@@ -102,18 +108,17 @@ public class TunnelListenerIntegrationTest
         return new DatagramPacket(data, data.length, InetAddress.getByName(serverIp), Integer.parseInt(serverPort));
     }
     
-    @Ignore
     @Test
     public void shouldRouteIncomingPacketToCorrectNodeDelegate() throws InterruptedException 
     {
         underTest = tunnelListenerThreadFactory.construct(receivesFromServer, nodeDelegates);
+        stopTestAfterNodeDelegatesAreCalled();
         
         runTunnelListener();
         
         InOrder inOrder = inOrder(nodeDelegate, anotherNodeDelegate);
-        
-        inOrder.verify(nodeDelegate).send(argThat(is(packetWithDestination(localNodeAddress, localNodePort))));
-        inOrder.verify(anotherNodeDelegate).send(argThat(is(packetWithDestination(localNodeAddress, localNodePort))));
+        inOrder.verify(nodeDelegate).send(argThat(is(packetWithDestination(firstLocalNodeAddress, firstLocalNodePort))));
+        inOrder.verify(anotherNodeDelegate).send(argThat(is(packetWithDestination(secondLocalNodeAddress, secondLocalNodePort))));
     }
     
     private void runTunnelListener() throws InterruptedException

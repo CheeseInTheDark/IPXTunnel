@@ -8,18 +8,14 @@ import java.util.Arrays;
 public class IPXPacketUnpacker
 {
 
-    public IPXPacketUnpacker()
-    {
-    }
-    
-    public InetAddress extractSenderAddress(DatagramPacket packet) throws UnknownHostException
+    public InetAddress extractDestinationAddress(DatagramPacket packet) throws UnknownHostException
     {
         int length = packet.getLength();
         byte[] address = Arrays.copyOfRange(packet.getData(), length - 8, length - 4);
         return InetAddress.getByAddress(address);
     }
 
-    public int extractSenderPort(DatagramPacket packet)
+    public int extractDestinationPort(DatagramPacket packet)
     {
         int length = packet.getLength();
         byte[] portBytes = Arrays.copyOfRange(packet.getData(), length - 4, length - 2);
@@ -27,9 +23,9 @@ public class IPXPacketUnpacker
         return portFromBytes(portBytes);
     }
 
-	public int extractDestinationPort(DatagramPacket packet)
+	public int extractSenderPort(DatagramPacket packet)
 	{
-        int length = packet.getLength();
+	    int length = packet.getLength();
         byte[] portBytes = Arrays.copyOfRange(packet.getData(), length - 2, length);
         
         return portFromBytes(portBytes);

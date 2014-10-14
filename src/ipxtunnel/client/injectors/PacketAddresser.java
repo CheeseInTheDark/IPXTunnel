@@ -7,15 +7,10 @@ import java.net.UnknownHostException;
 
 public class PacketAddresser
 {
-
-    public PacketAddresser()
-    {
-    }
-    
     public void address(DatagramPacket packet) throws UnknownHostException
     {
         IPXPacketUnpacker unpacker = new IPXPacketUnpacker();
-        packet.setAddress(unpacker.extractSenderAddress(packet));
-        packet.setPort(unpacker.extractSenderPort(packet));
+        packet.setAddress(unpacker.extractDestinationAddress(packet));
+        packet.setPort(unpacker.extractDestinationPort(packet));
     }
 }

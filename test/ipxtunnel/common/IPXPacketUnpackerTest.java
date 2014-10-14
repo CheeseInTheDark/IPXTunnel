@@ -29,34 +29,34 @@ public class IPXPacketUnpackerTest
     }
 
     @Test
-    public void testIPXPacketUnpackerReturnsSenderAddress() throws UnknownHostException
+    public void testIPXPacketUnpackerReturnsDestinationAddress() throws UnknownHostException
     {
         DatagramPacket packet = createPacket(localMessage);
-        InetAddress sender = unpacker.extractSenderAddress(packet);
+        InetAddress sender = unpacker.extractDestinationAddress(packet);
         assertEquals(localHostAddress, sender);
         
         packet = createPacket(remoteMessage);
-        sender = unpacker.extractSenderAddress(packet);
+        sender = unpacker.extractDestinationAddress(packet);
         assertEquals(remoteAddress, sender);
     }
 
     @Test
-    public void testIPXPacketUnpackerReturnsSenderPort()
+    public void testIPXPacketUnpackerReturnsDestinationPort()
     {
         DatagramPacket packet = createPacket(localMessage);
         
-        int port = unpacker.extractSenderPort(packet);
+        int port = unpacker.extractDestinationPort(packet);
         
         int expectedPort = 12321;
         assertEquals(expectedPort, port);
     }
     
     @Test
-    public void testIPXPacketUnpackerReturnsDestinationPort()
+    public void testIPXPacketUnpackerReturnsSenderPort()
     {
     	DatagramPacket packet = createPacket(localMessage);
     	
-    	int port = unpacker.extractDestinationPort(packet);
+    	int port = unpacker.extractSenderPort(packet);
     	
     	int expectedPort = 15;
     	assertEquals(expectedPort, port);
