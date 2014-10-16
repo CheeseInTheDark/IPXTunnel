@@ -7,12 +7,12 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-public class PacketMatcher<T> extends TypeSafeMatcher<T>
+public class PacketDestinationMatcher<T> extends TypeSafeMatcher<T>
 {
     private InetAddress address;
     private int port;
     
-    public PacketMatcher(InetAddress address, int port)
+    public PacketDestinationMatcher(InetAddress address, int port)
     {
         this.address = address;
         this.port = port;
@@ -20,7 +20,7 @@ public class PacketMatcher<T> extends TypeSafeMatcher<T>
     
     public static Matcher<DatagramPacket> packetWithDestination(InetAddress address, int port)
     {
-        return new PacketMatcher<DatagramPacket>(address, port);
+        return new PacketDestinationMatcher<DatagramPacket>(address, port);
     }
 
     @Override

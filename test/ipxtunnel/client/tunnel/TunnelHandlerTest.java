@@ -10,7 +10,7 @@ import ipxtunnel.answers.PacketAnswer;
 import ipxtunnel.client.injectors.DirectPacketInjector;
 import ipxtunnel.client.injectors.PacketUnwrapper;
 import ipxtunnel.common.IPXPacketUnpacker;
-import ipxtunnel.matchers.PacketMatcher;
+import ipxtunnel.matchers.PacketDestinationMatcher;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;

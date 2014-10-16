@@ -1,7 +1,9 @@
 package ipxtunnel.client.tunnel;
 
-import static ipxtunnel.matchers.PacketMatcher.packetWithDestination;
+import static ipxtunnel.matchers.PacketDataMatcher.packetWithData;
+import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doAnswer;
@@ -16,13 +18,15 @@ import ipxtunnel.answers.PacketAnswer;
 import ipxtunnel.client.TunnelListenerThread;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.PropertiesSingleton;
-import ipxtunnel.matchers.PacketMatcher;
+import ipxtunnel.matchers.PacketDataMatcher;
+import ipxtunnel.matchers.PacketDestinationMatcher;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -119,6 +123,18 @@ public class TunnelListenerIntegrationTest
         InOrder inOrder = inOrder(nodeDelegate, anotherNodeDelegate);
         inOrder.verify(nodeDelegate).send(argThat(is(packetWithDestination(firstLocalNodeAddress, firstLocalNodePort))));
         inOrder.verify(anotherNodeDelegate).send(argThat(is(packetWithDestination(secondLocalNodeAddress, secondLocalNodePort))));
+    }
+    
+    @Test
+    public void shouldStripPacketbeforeSending() throws InterruptedException
+    {
+        underTest = tunnelListenerThreadFactory.construct(receivesFromServer, nodeDelegates);
+        stopTestAfterNodeDelegatesAreCalled();
+        
+        runTunnelListener();
+        
+        InOrder inOrder = inOrder(nodeDelegate, anotherNodeDelegate);
+        inOrder.verify(nodeDelegate).send(argThat(is(packetWithData(new byte[]{0x0F}))));
     }
     
     private void runTunnelListener() throws InterruptedException
