@@ -31,7 +31,7 @@ public class MiddleManThreadTest
 	}
 	
 	@Test
-	public void testThreadPersists()
+	public void testThreadPersists() throws InterruptedException
 	{
 		startThread();
 

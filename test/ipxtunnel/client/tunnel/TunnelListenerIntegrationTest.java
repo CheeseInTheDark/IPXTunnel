@@ -1,7 +1,9 @@
 package ipxtunnel.client.tunnel;
 
+import static ipxtunnel.answers.EndOfThreadTestAnswer.stopThread;
 import static ipxtunnel.matchers.PacketDataMatcher.packetWithData;
 import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
+import static ipxtunnel.thread.ThreadTest.runThreadAndWaitForDeath;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -20,6 +22,7 @@ import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.PropertiesSingleton;
 import ipxtunnel.matchers.PacketDataMatcher;
 import ipxtunnel.matchers.PacketDestinationMatcher;
+import ipxtunnel.thread.ThreadTest;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -59,11 +62,8 @@ public class TunnelListenerIntegrationTest
 
     private TunnelListenerThreadFactory tunnelListenerThreadFactory = new TunnelListenerThreadFactory();
     
-    private String IPXPort = "0";
     private String serverPort = "456";
     private String serverIp = "127.0.0.1";
-    
-    private String[] rawArguments = {IPXPort, serverPort, serverIp};
     
     private DatagramPacket packetFromFirstDelegate;
     private DatagramPacket packetFromSecondDelegate;
@@ -78,8 +78,6 @@ public class TunnelListenerIntegrationTest
         when(nodeDelegates.get(2)).thenReturn(nodeDelegate);
         when(nodeDelegates.get(4)).thenReturn(anotherNodeDelegate);
       
-        PropertiesSingleton.initialize(rawArguments);
-        
         firstLocalNodeAddress = InetAddress.getByName("1.1.1.1");
         firstLocalNodePort = 1;
         
@@ -95,7 +93,7 @@ public class TunnelListenerIntegrationTest
     
     private void stopTestAfterNodeDelegatesAreCalled()
     {
-        doAnswer(new EndOfThreadTestAnswer<DatagramPacket>(underTest)).when(anotherNodeDelegate).send(any(DatagramPacket.class));
+        doAnswer(stopThread(underTest)).when(anotherNodeDelegate).send(any(DatagramPacket.class));
     }
     
     private void initializePackets() throws UnknownHostException
@@ -118,7 +116,7 @@ public class TunnelListenerIntegrationTest
         underTest = tunnelListenerThreadFactory.construct(receivesFromServer, nodeDelegates);
         stopTestAfterNodeDelegatesAreCalled();
         
-        runTunnelListener();
+        runThreadAndWaitForDeath(underTest);
         
         InOrder inOrder = inOrder(nodeDelegate, anotherNodeDelegate);
         inOrder.verify(nodeDelegate).send(argThat(is(packetWithDestination(firstLocalNodeAddress, firstLocalNodePort))));
@@ -131,10 +129,9 @@ public class TunnelListenerIntegrationTest
         underTest = tunnelListenerThreadFactory.construct(receivesFromServer, nodeDelegates);
         stopTestAfterNodeDelegatesAreCalled();
         
-        runTunnelListener();
+        runThreadAndWaitForDeath(underTest);
         
-        InOrder inOrder = inOrder(nodeDelegate, anotherNodeDelegate);
-        inOrder.verify(nodeDelegate).send(argThat(is(packetWithData(new byte[]{0x0F}))));
+        verify(nodeDelegate).send(argThat(is(packetWithData(new byte[]{0x0F}))));
     }
     
     private void runTunnelListener() throws InterruptedException

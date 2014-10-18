@@ -1,5 +1,6 @@
 package ipxtunnel.client.tunnel;
 
+import static ipxtunnel.thread.ThreadTest.runOneCycle;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -10,6 +11,7 @@ import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
+import ipxtunnel.thread.ThreadTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -63,15 +65,8 @@ public class TunnelListenerThreadFactoryTest
         
         MiddleManThread constructedThread = underTest.construct(receivesFromServer, nodeDelegates);
         
-        runThreadThroughOneCycle(constructedThread);
+        runOneCycle(constructedThread);
         
         verify(tunnelListener).handleOnePacket();
-    }
-    
-    public void runThreadThroughOneCycle(MiddleManThread thread) throws InterruptedException
-    {
-        thread.start();
-        thread.interrupt();
-        thread.waitForDeath();
     }
 }

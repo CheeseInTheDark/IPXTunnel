@@ -9,6 +9,11 @@ public class PacketAnswer implements Answer<Void>
 {
     private DatagramPacket packet;
     
+    public static PacketAnswer setReceivedPacketTo(DatagramPacket packet)
+    {
+        return new PacketAnswer(packet);
+    }
+    
     public PacketAnswer(DatagramPacket packet)
     {
         this.packet = packet;
