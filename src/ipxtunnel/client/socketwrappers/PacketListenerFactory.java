@@ -5,9 +5,9 @@ import java.net.DatagramSocket;
 public class PacketListenerFactory
 {
 
-    public PacketListener construct(DatagramSocket receivesFromServer)
+    public PacketListener construct(DatagramSocket socket)
     {
-        return new PacketListener(receivesFromServer);
+        return new PacketListener(socket);
     }
 
 }
