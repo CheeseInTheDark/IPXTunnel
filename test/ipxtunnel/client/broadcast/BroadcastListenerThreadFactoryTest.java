@@ -4,7 +4,9 @@ import static ipxtunnel.thread.ThreadTest.runOneCycle;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import ipxtunnel.client.middleman.MiddleMan;
+import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;
+import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 import ipxtunnel.thread.ThreadTest;
@@ -36,7 +38,7 @@ public class BroadcastListenerThreadFactoryTest
     private MiddleMan broadcastListener;
     
     @Mock
-    private BroadcastHandler broadcastHandler;
+    private PacketHandler broadcastHandler;
 
     @Mock
     private PacketListenerFactory packetListenerFactory;
@@ -48,7 +50,7 @@ public class BroadcastListenerThreadFactoryTest
     private BroadcastHandlerFactory broadcastHandlerFactory;
 
     @Mock
-    private BroadcastListenerFactory broadcastListenerFactory;
+    private MiddleManFactory middleManFactory;
     
     @Before
     public void setup()
@@ -61,7 +63,7 @@ public class BroadcastListenerThreadFactoryTest
     {
         when(packetListenerFactory.construct(receivesBroadcasts)).thenReturn(packetListener);
         when(broadcastHandlerFactory.construct(sendsToServer)).thenReturn(broadcastHandler);
-        when(broadcastListenerFactory.construct(packetListener, broadcastHandler)).thenReturn(broadcastListener);
+        when(middleManFactory.construct(packetListener, broadcastHandler)).thenReturn(broadcastListener);
         
         MiddleManThread constructedThread = broadcastListenerThreadFactory.construct(sendsToServer, receivesBroadcasts);
 

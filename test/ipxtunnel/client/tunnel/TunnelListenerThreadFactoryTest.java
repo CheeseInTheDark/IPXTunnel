@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 
 import ipxtunnel.client.middleman.MiddleMan;
+import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
@@ -27,7 +28,7 @@ public class TunnelListenerThreadFactoryTest
     private MiddleMan tunnelListener;
     
     @Mock
-    private TunnelListenerFactory tunnelListenerFactory;
+    private MiddleManFactory middleManFactory;
     
     @Mock
     private NodeDelegates nodeDelegates;
@@ -61,7 +62,7 @@ public class TunnelListenerThreadFactoryTest
     {
         when(packetListenerFactory.construct(receivesFromServer)).thenReturn(packetListener);
         when(tunnelHandlerFactory.construct(nodeDelegates)).thenReturn(tunnelHandler);
-        when(tunnelListenerFactory.construct(packetListener, tunnelHandler)).thenReturn(tunnelListener);
+        when(middleManFactory.construct(packetListener, tunnelHandler)).thenReturn(tunnelListener);
         
         MiddleManThread constructedThread = underTest.construct(receivesFromServer, nodeDelegates);
         

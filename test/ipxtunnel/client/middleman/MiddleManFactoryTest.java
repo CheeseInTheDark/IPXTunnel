@@ -1,9 +1,11 @@
-package ipxtunnel.client.tunnel;
+package ipxtunnel.client.middleman;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import ipxtunnel.client.middleman.MiddleMan;
+import ipxtunnel.client.middleman.MiddleManFactory;
+import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.socketwrappers.PacketListener;
 
 import java.io.IOException;
@@ -14,16 +16,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class TunnelListenerFactoryTest
+public class MiddleManFactoryTest
 {
 	@Mock
 	private PacketListener listener;
 	
 	@Mock
-	private TunnelHandler tunnelHandler;
+	private PacketHandler packetHandler;
 	
-	private DatagramPacket packet;
-
 	@Before
 	public void setup() throws IOException
 	{
@@ -33,9 +33,9 @@ public class TunnelListenerFactoryTest
 	@Test
 	public void shouldConstructTunnelListenerWithProperHandler() throws IOException 
 	{
-		TunnelListenerFactory underTest = new TunnelListenerFactory();
+		MiddleManFactory underTest = new MiddleManFactory();
 		
-		MiddleMan constructedMiddleMan = underTest.construct(listener, tunnelHandler);
+		MiddleMan constructedMiddleMan = underTest.construct(listener, packetHandler);
 		
 		assertThat(constructedMiddleMan, is(notNullValue()));
 	}
