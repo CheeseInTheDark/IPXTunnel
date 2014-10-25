@@ -38,7 +38,7 @@ public class BroadcastListenerThreadFactoryTest
     private MiddleMan broadcastListener;
     
     @Mock
-    private PacketHandler broadcastHandler;
+    private BroadcastHandler broadcastHandler;
 
     @Mock
     private PacketListenerFactory packetListenerFactory;

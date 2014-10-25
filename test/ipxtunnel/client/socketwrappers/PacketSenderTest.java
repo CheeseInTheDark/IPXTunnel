@@ -29,5 +29,12 @@ public class PacketSenderTest
         sentPacket.setPort(123);
         verify(serverSocket).send(refEq(sentPacket, ""));
     }
+    
+    @Test
+    public void testPacketSenderCatchesExceptions()
+    {
+        
+    }
+    
 
 }

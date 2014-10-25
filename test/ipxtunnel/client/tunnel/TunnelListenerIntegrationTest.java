@@ -133,10 +133,4 @@ public class TunnelListenerIntegrationTest
         
         verify(nodeDelegate).send(argThat(is(packetWithData(new byte[]{0x0F}))));
     }
-    
-    private void runTunnelListener() throws InterruptedException
-    {
-        underTest.start();
-        underTest.waitForDeath();        
-    }
 }

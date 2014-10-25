@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class TunnelHandlerFactoryTest
 {
@@ -20,6 +21,7 @@ public class TunnelHandlerFactoryTest
     @Before
     public void setup()
     {
+        MockitoAnnotations.initMocks(this);
         tunnelHandlerFactory = new TunnelHandlerFactory();
     }
     
