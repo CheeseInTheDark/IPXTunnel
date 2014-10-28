@@ -42,6 +42,7 @@ public class BroadcastListenerIntegrationTest
     
     private DatagramPacket broadcastPacket;
     
+    @Mock
     private InetAddress serverAddress;
     
     private int serverPort = 123;
@@ -54,6 +55,8 @@ public class BroadcastListenerIntegrationTest
         serverAddress = InetAddress.getByName("1.1.1.1");
         
         broadcastPacket = new DatagramPacket(new byte[0], 0);
+        broadcastPacket.setPort(0);
+        broadcastPacket.setAddress(serverAddress);
         doAnswer(setReceivedPacketTo(broadcastPacket)).when(receivesBroadcasts).receive(any(DatagramPacket.class));
         
     }

@@ -23,7 +23,7 @@ public class BroadcastHandlerTest
 {
 
     @InjectMocks
-    private BroadcastHandler broadcastHandler;
+    private BroadcastHandler broadcastHandler = new BroadcastHandler(null);
     
     @Mock
     private BroadcastInjector broadcastInjector;

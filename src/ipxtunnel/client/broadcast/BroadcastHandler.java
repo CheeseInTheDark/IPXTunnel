@@ -11,8 +11,12 @@ public class BroadcastHandler implements PacketHandler
 {
 
     private PacketSender sender;
+    private BroadcastInjector injector = new BroadcastInjector();
     
-    private BroadcastInjector injector;
+    public BroadcastHandler(PacketSender sender)
+    {
+        this.sender = sender;
+    }
     
     @Override
     public void handle(DatagramPacket packet)

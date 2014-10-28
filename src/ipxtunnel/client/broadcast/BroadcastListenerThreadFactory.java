@@ -12,9 +12,9 @@ import java.net.MulticastSocket;
 
 public class BroadcastListenerThreadFactory
 {
-    private PacketListenerFactory packetListenerFactory;
-    private MiddleManFactory middleManFactory;
-    private BroadcastHandlerFactory broadcastHandlerFactory;
+    private PacketListenerFactory packetListenerFactory = new PacketListenerFactory();
+    private MiddleManFactory middleManFactory = new MiddleManFactory();
+    private BroadcastHandlerFactory broadcastHandlerFactory = new BroadcastHandlerFactory();
     
     public MiddleManThread construct(DatagramSocket sendsToServer, MulticastSocket receivesBroadcasts)
     {
