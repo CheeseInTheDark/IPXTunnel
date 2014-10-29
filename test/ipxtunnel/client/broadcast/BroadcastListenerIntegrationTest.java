@@ -19,6 +19,7 @@ import java.net.MulticastSocket;
 import ipxtunnel.answers.EndOfThreadTestAnswer;
 import ipxtunnel.answers.PacketAnswer;
 import ipxtunnel.client.middleman.MiddleManThread;
+import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.matchers.PacketDestinationMatcher;
 
 import org.junit.Before;
@@ -46,6 +47,9 @@ public class BroadcastListenerIntegrationTest
     private InetAddress serverAddress;
     
     private int serverPort = 123;
+
+    @Mock
+    private ConnectionDetails serverConnectionDetails;
     
     @Before
     public void setup() throws IOException
@@ -53,6 +57,9 @@ public class BroadcastListenerIntegrationTest
         MockitoAnnotations.initMocks(this);
         
         serverAddress = InetAddress.getByName("1.1.1.1");
+        
+        when(serverConnectionDetails.getAddress()).thenReturn(serverAddress);
+        when(serverConnectionDetails.getPort()).thenReturn(serverPort);
         
         broadcastPacket = new DatagramPacket(new byte[0], 0);
         broadcastPacket.setPort(0);
@@ -64,7 +71,7 @@ public class BroadcastListenerIntegrationTest
     @Test
     public void BroadcastListenerShouldRouteBroadcastPacketToServer() throws InterruptedException, IOException
     {
-        broadcastListenerThread = broadcastListenerThreadFactory.construct(sendsToServer, receivesBroadcasts);
+        broadcastListenerThread = broadcastListenerThreadFactory.construct(serverConnectionDetails, sendsToServer, receivesBroadcasts);
         doAnswer(stopThread(broadcastListenerThread)).when(sendsToServer).send(any(DatagramPacket.class));
         
         runBroadcastListenerThread();

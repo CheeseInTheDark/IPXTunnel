@@ -3,6 +3,7 @@ package ipxtunnel.client.socketwrappers;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import ipxtunnel.client.properties.ConnectionDetails;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -21,9 +22,7 @@ public class PacketSenderFactoryTest
     private DatagramSocket sendingSocket;
     
     @Mock
-    private InetAddress destinationAddress;
-    
-    private int destinationPort = 123;
+    private ConnectionDetails destination;
     
     @Before
     public void setup()
@@ -34,7 +33,7 @@ public class PacketSenderFactoryTest
     @Test
     public void shouldCreatePacketSender()
     {
-        PacketSender packetSender = packetSenderFactory.construct(sendingSocket, destinationAddress, destinationPort);
+        PacketSender packetSender = packetSenderFactory.construct(sendingSocket, destination);
         
         assertThat(packetSender, is(notNullValue()));
     }

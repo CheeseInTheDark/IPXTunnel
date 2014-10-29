@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.net.DatagramSocket;
 
+import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 import ipxtunnel.client.socketwrappers.PacketSender;
@@ -37,6 +38,9 @@ public class BroadcastHandlerFactoryTest
     @Mock
     private PacketSender packetSender;
     
+    @Mock
+    private ConnectionDetails destination;
+    
     @Before
     public void setup()
     {
@@ -46,9 +50,9 @@ public class BroadcastHandlerFactoryTest
     @Test
     public void shouldCreateBroadcastHandler()
     {
-        when(packetSenderFactory.construct(sendingSocket)).thenReturn(packetSender);
+        when(packetSenderFactory.construct(sendingSocket, destination)).thenReturn(packetSender);
         
-        BroadcastHandler handler = broadcastHandlerFactory.construct(sendingSocket);
+        BroadcastHandler handler = broadcastHandlerFactory.construct(destination, sendingSocket);
         
         assertThat(handler, is(notNullValue()));
     }

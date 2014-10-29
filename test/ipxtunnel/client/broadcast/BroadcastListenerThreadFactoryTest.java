@@ -7,6 +7,7 @@ import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.middleman.PacketHandler;
+import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 import ipxtunnel.thread.ThreadTest;
@@ -52,6 +53,9 @@ public class BroadcastListenerThreadFactoryTest
     @Mock
     private MiddleManFactory middleManFactory;
     
+    @Mock
+    private ConnectionDetails connectionDetails;
+    
     @Before
     public void setup()
     {
@@ -62,10 +66,10 @@ public class BroadcastListenerThreadFactoryTest
     public void shouldConstructBroadcastListenerThread() throws InterruptedException, IOException 
     {
         when(packetListenerFactory.construct(receivesBroadcasts)).thenReturn(packetListener);
-        when(broadcastHandlerFactory.construct(sendsToServer)).thenReturn(broadcastHandler);
+        when(broadcastHandlerFactory.construct(connectionDetails, sendsToServer)).thenReturn(broadcastHandler);
         when(middleManFactory.construct(packetListener, broadcastHandler)).thenReturn(broadcastListener);
         
-        MiddleManThread constructedThread = broadcastListenerThreadFactory.construct(sendsToServer, receivesBroadcasts);
+        MiddleManThread constructedThread = broadcastListenerThreadFactory.construct(connectionDetails, sendsToServer, receivesBroadcasts);
 
         runOneCycle(constructedThread);
         
