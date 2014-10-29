@@ -3,6 +3,7 @@ package ipxtunnel.client.broadcast;
 import static ipxtunnel.answers.EndOfThreadTestAnswer.stopThread;
 import static ipxtunnel.answers.PacketAnswer.setReceivedPacketTo;
 import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
+import static ipxtunnel.thread.ThreadTest.runThreadAndWaitForDeath;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
@@ -21,6 +22,7 @@ import ipxtunnel.answers.PacketAnswer;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.matchers.PacketDestinationMatcher;
+import ipxtunnel.thread.ThreadTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,12 +46,10 @@ public class BroadcastListenerIntegrationTest
     private DatagramPacket broadcastPacket;
     
     @Mock
-    private InetAddress serverAddress;
-    
-    private int serverPort = 123;
-
-    @Mock
     private ConnectionDetails serverConnectionDetails;
+    @Mock
+    private InetAddress serverAddress;
+    private int serverPort = 123;
     
     @Before
     public void setup() throws IOException
@@ -74,14 +74,8 @@ public class BroadcastListenerIntegrationTest
         broadcastListenerThread = broadcastListenerThreadFactory.construct(serverConnectionDetails, sendsToServer, receivesBroadcasts);
         doAnswer(stopThread(broadcastListenerThread)).when(sendsToServer).send(any(DatagramPacket.class));
         
-        runBroadcastListenerThread();
+        runThreadAndWaitForDeath(broadcastListenerThread);
         
         verify(sendsToServer).send(argThat(is(packetWithDestination(serverAddress, serverPort))));
-    }
-    
-    private void runBroadcastListenerThread() throws InterruptedException
-    {
-        broadcastListenerThread.start();
-        broadcastListenerThread.waitForDeath();
     }
 }
