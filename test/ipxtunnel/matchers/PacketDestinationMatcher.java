@@ -18,7 +18,7 @@ public class PacketDestinationMatcher<T> extends TypeSafeMatcher<T>
         this.port = port;
     }
     
-    public static Matcher<DatagramPacket> packetWithDestination(InetAddress address, int port)
+    public static TypeSafeMatcher<DatagramPacket> packetWithDestination(InetAddress address, int port)
     {
         return new PacketDestinationMatcher<DatagramPacket>(address, port);
     }

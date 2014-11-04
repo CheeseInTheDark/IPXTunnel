@@ -2,15 +2,14 @@ package ipxtunnel.client.socketwrappers;
 
 import ipxtunnel.client.properties.ConnectionDetails;
 
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.SocketException;
 
 public class PacketSenderFactory
 {
 
-    public PacketSender construct(DatagramSocket sendingSocket, ConnectionDetails destination)
+    public PacketSender construct(ConnectionDetails destination) throws SocketException
     {
-        return new PacketSender(sendingSocket, destination.getAddress(), destination.getPort());
+        return new PacketSender(destination.getAddress(), destination.getPort());
     }
 
 }

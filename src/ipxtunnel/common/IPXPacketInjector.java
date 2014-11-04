@@ -1,5 +1,7 @@
 package ipxtunnel.common;
 
+import static java.util.Arrays.copyOf;
+
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.Arrays;
@@ -12,7 +14,7 @@ public class IPXPacketInjector {
 	{
 		this.packet = packet;
 		
-		byte[] messageWithRoutingInfo = Arrays.copyOf(packet.getData(), packet.getLength() + 9);
+		byte[] messageWithRoutingInfo = copyOf(packet.getData(), packet.getLength() + 9);
 		packet.setData(messageWithRoutingInfo);
 	}
 

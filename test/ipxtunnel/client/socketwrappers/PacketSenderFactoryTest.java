@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import ipxtunnel.client.properties.ConnectionDetails;
 
 import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.SocketException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,9 +31,9 @@ public class PacketSenderFactoryTest
     }
     
     @Test
-    public void shouldCreatePacketSender()
+    public void shouldCreatePacketSender() throws SocketException
     {
-        PacketSender packetSender = packetSenderFactory.construct(sendingSocket, destination);
+        PacketSender packetSender = packetSenderFactory.construct(destination);
         
         assertThat(packetSender, is(notNullValue()));
     }

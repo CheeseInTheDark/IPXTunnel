@@ -4,22 +4,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
-
-import java.net.DatagramSocket;
-
 import ipxtunnel.client.properties.ConnectionDetails;
-import ipxtunnel.client.socketwrappers.PacketListener;
-import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 import ipxtunnel.client.socketwrappers.PacketSender;
 import ipxtunnel.client.socketwrappers.PacketSenderFactory;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import java.net.DatagramSocket;
+import java.net.SocketException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 
@@ -48,11 +43,11 @@ public class BroadcastHandlerFactoryTest
     }
     
     @Test
-    public void shouldCreateBroadcastHandler()
+    public void shouldCreateBroadcastHandler() throws SocketException
     {
-        when(packetSenderFactory.construct(sendingSocket, destination)).thenReturn(packetSender);
+        when(packetSenderFactory.construct(destination)).thenReturn(packetSender);
         
-        BroadcastHandler handler = broadcastHandlerFactory.construct(destination, sendingSocket);
+        BroadcastHandler handler = broadcastHandlerFactory.construct(destination);
         
         assertThat(handler, is(notNullValue()));
     }

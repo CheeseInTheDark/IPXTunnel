@@ -6,21 +6,17 @@ import static org.mockito.Mockito.when;
 import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;
-import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
-import ipxtunnel.thread.ThreadTest;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
 import java.net.MulticastSocket;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 
@@ -30,10 +26,7 @@ public class BroadcastListenerThreadFactoryTest
     private BroadcastListenerThreadFactory broadcastListenerThreadFactory;
     
     @Mock
-    private DatagramSocket sendsToServer;
-    
-    @Mock
-    private MulticastSocket receivesBroadcasts;
+    private ConnectionDetails broadcastConnectionDetails;
     
     @Mock
     private MiddleMan broadcastListener;
@@ -42,7 +35,7 @@ public class BroadcastListenerThreadFactoryTest
     private BroadcastHandler broadcastHandler;
 
     @Mock
-    private PacketListenerFactory packetListenerFactory;
+    private BroadcastListenerFactory broadcastListenerFactory;
     
     @Mock
     private PacketListener packetListener;
@@ -54,7 +47,7 @@ public class BroadcastListenerThreadFactoryTest
     private MiddleManFactory middleManFactory;
     
     @Mock
-    private ConnectionDetails connectionDetails;
+    private ConnectionDetails serverConnectionDetails;
     
     @Before
     public void setup()
@@ -65,11 +58,11 @@ public class BroadcastListenerThreadFactoryTest
     @Test
     public void shouldConstructBroadcastListenerThread() throws InterruptedException, IOException 
     {
-        when(packetListenerFactory.construct(receivesBroadcasts)).thenReturn(packetListener);
-        when(broadcastHandlerFactory.construct(connectionDetails, sendsToServer)).thenReturn(broadcastHandler);
+        when(broadcastListenerFactory.construct(broadcastConnectionDetails)).thenReturn(packetListener);
+        when(broadcastHandlerFactory.construct(serverConnectionDetails)).thenReturn(broadcastHandler);
         when(middleManFactory.construct(packetListener, broadcastHandler)).thenReturn(broadcastListener);
         
-        MiddleManThread constructedThread = broadcastListenerThreadFactory.construct(connectionDetails, sendsToServer, receivesBroadcasts);
+        MiddleManThread constructedThread = broadcastListenerThreadFactory.construct(serverConnectionDetails, broadcastConnectionDetails);
 
         runOneCycle(constructedThread);
         
