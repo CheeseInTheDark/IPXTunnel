@@ -6,11 +6,8 @@ import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListener;
-import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.SocketException;
 
 public class BroadcastListenerThreadFactory
 {

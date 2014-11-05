@@ -5,7 +5,6 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 import ipxtunnel.answers.PacketAnswer;
-import ipxtunnel.client.socketwrappers.PacketListener;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -17,8 +16,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 public class PacketListenerTest {
 

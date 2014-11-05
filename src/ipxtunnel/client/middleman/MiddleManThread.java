@@ -38,7 +38,6 @@ public class MiddleManThread extends Thread implements Runnable
         }
         catch (IOException e)
         {
-            e.printStackTrace();
         }
 	}
 

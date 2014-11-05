@@ -1,5 +1,7 @@
 package ipxtunnel.answers;
 
+import ipxtunnel.client.middleman.MiddleManThread;
+
 import java.net.DatagramPacket;
 
 import org.mockito.invocation.InvocationOnMock;
@@ -7,22 +9,23 @@ import org.mockito.stubbing.Answer;
 
 public class EndOfThreadTestAnswer<T> implements Answer<Thread>
 {
-    private Thread thread;
+    private MiddleManThread thread;
     
-    public static EndOfThreadTestAnswer<DatagramPacket> stopThread(Thread thread)
+    public static EndOfThreadTestAnswer<DatagramPacket> stopThread(MiddleManThread thread)
     {
         return new EndOfThreadTestAnswer<DatagramPacket>(thread);
     }
     
-    public EndOfThreadTestAnswer(Thread thread)
+    public EndOfThreadTestAnswer(MiddleManThread thread)
     {
         this.thread = thread;
     }
     
     @Override
-    public Thread answer(InvocationOnMock invocation) throws Throwable
+    public MiddleManThread answer(InvocationOnMock invocation) throws Throwable
     {
         thread.interrupt();
+        
         return null;
     }
 

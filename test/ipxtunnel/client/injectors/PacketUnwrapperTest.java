@@ -1,13 +1,9 @@
 package ipxtunnel.client.injectors;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.verify;
 
 import java.net.DatagramPacket;
 import java.net.UnknownHostException;
-
-import ipxtunnel.client.injectors.PacketAddresser;
-import ipxtunnel.client.injectors.PacketStripper;
-import ipxtunnel.client.injectors.PacketUnwrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
 public class PacketUnwrapperTest
 {
 	@Mock

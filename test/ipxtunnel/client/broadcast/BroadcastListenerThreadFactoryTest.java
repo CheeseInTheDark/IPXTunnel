@@ -8,10 +8,8 @@ import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListener;
-import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 
 import java.io.IOException;
-import java.net.MulticastSocket;
 
 import org.junit.Before;
 import org.junit.Test;

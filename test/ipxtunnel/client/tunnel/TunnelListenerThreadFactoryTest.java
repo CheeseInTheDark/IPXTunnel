@@ -3,22 +3,19 @@ package ipxtunnel.client.tunnel;
 import static ipxtunnel.thread.ThreadTest.runOneCycle;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.net.DatagramSocket;
-
 import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
-import ipxtunnel.thread.ThreadTest;
+
+import java.io.IOException;
+import java.net.DatagramSocket;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 

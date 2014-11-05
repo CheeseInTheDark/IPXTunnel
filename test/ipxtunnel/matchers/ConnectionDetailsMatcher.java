@@ -2,9 +2,7 @@ package ipxtunnel.matchers;
 
 import ipxtunnel.client.properties.ConnectionDetails;
 
-import java.net.DatagramPacket;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;

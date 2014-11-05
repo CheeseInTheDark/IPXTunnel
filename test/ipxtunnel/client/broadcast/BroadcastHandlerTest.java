@@ -1,21 +1,17 @@
 package ipxtunnel.client.broadcast;
 
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verify;
+import ipxtunnel.client.injectors.BroadcastInjector;
+import ipxtunnel.client.socketwrappers.PacketSender;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.UnknownHostException;
-
-import ipxtunnel.client.injectors.BroadcastInjector;
-import ipxtunnel.client.socketwrappers.PacketSender;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 

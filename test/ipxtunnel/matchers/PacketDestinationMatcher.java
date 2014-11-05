@@ -4,7 +4,6 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 public class PacketDestinationMatcher<T> extends TypeSafeMatcher<T>

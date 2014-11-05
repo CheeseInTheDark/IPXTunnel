@@ -5,12 +5,7 @@ import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.argThat;
-import static org.mockito.Matchers.refEq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import ipxtunnel.client.socketwrappers.PacketSender;
-import ipxtunnel.matchers.PacketDataMatcher;
-import ipxtunnel.matchers.PacketDestinationMatcher;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -19,7 +14,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

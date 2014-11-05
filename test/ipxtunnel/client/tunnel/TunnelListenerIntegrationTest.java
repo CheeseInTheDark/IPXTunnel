@@ -5,40 +5,25 @@ import static ipxtunnel.matchers.PacketDataMatcher.packetWithData;
 import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
 import static ipxtunnel.thread.ThreadTest.runThreadAndWaitForDeath;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
-import ipxtunnel.answers.EndOfThreadTestAnswer;
 import ipxtunnel.answers.PacketAnswer;
-import ipxtunnel.client.TunnelListenerThread;
 import ipxtunnel.client.middleman.MiddleManThread;
-import ipxtunnel.client.properties.PropertiesSingleton;
-import ipxtunnel.matchers.PacketDataMatcher;
-import ipxtunnel.matchers.PacketDestinationMatcher;
-import ipxtunnel.thread.ThreadTest;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InOrder;
-import org.mockito.Matchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 
 public class TunnelListenerIntegrationTest
 {

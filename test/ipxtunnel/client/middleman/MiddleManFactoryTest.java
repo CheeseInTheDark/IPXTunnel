@@ -3,13 +3,9 @@ package ipxtunnel.client.middleman;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import ipxtunnel.client.middleman.MiddleMan;
-import ipxtunnel.client.middleman.MiddleManFactory;
-import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.socketwrappers.PacketListener;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
 
 import org.junit.Before;
 import org.junit.Test;

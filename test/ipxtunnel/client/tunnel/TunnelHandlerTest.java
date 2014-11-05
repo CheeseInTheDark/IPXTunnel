@@ -2,27 +2,20 @@ package ipxtunnel.client.tunnel;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.argThat;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import ipxtunnel.answers.PacketAnswer;
-import ipxtunnel.client.injectors.DirectPacketInjector;
 import ipxtunnel.client.injectors.PacketUnwrapper;
 import ipxtunnel.common.IPXPacketUnpacker;
-import ipxtunnel.matchers.PacketDestinationMatcher;
 
 import java.net.DatagramPacket;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class TunnelHandlerTest

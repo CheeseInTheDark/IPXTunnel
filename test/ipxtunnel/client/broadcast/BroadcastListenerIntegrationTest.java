@@ -6,10 +6,7 @@ import static ipxtunnel.matchers.ConnectionDetailsMatcher.socketAddressMatching;
 import static ipxtunnel.matchers.PacketDataMatcher.packetWithData;
 import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
 import static ipxtunnel.thread.ThreadTest.runThreadAndWaitForDeath;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
-import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doAnswer;
@@ -21,26 +18,19 @@ import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
 import ipxtunnel.client.socketwrappers.PacketSender;
-import ipxtunnel.matchers.ConnectionDetailsMatcher;
-import ipxtunnel.matchers.PacketDataMatcher;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -139,4 +129,5 @@ public class BroadcastListenerIntegrationTest
         
         verify(sendsToServer).send(argThat(is(packetWithData(expectedData))));
     }
+    
 }
