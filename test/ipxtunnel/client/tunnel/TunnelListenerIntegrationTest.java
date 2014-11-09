@@ -4,6 +4,7 @@ import static ipxtunnel.answers.EndOfThreadTestAnswer.stopThread;
 import static ipxtunnel.matchers.PacketDataMatcher.packetWithData;
 import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
 import static ipxtunnel.thread.ThreadTest.runThreadAndWaitForDeath;
+import static java.lang.Integer.parseInt;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
@@ -92,7 +93,7 @@ public class TunnelListenerIntegrationTest
     
     private DatagramPacket buildPacket(byte[] data) throws NumberFormatException, UnknownHostException
     {
-        return new DatagramPacket(data, data.length, InetAddress.getByName(serverIp), Integer.parseInt(serverPort));
+        return new DatagramPacket(data, data.length, InetAddress.getByName(serverIp), parseInt(serverPort));
     }
     
     @Test

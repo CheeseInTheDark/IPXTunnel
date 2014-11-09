@@ -72,8 +72,10 @@ public class BroadcastListenerIntegrationTest
     private int broadcastPort = 2;
     
     private byte[] initialData = new byte[]{0x05};
-    private byte[] expectedData = new byte[]{0x05, 0x00, 0x01, 0x01, 0x01, 0x02, 0x00, 0x03, 0x00, 0x00};
+    private byte[] expectedData = new byte[]{0x05, 0x00, 0x01, 0x01, 0x01, 0x03, 0x00, 0x03, 0x00, 0x00};
     private int senderPort = 3;
+    private String senderAddressName = "1.1.1.3";
+    private InetAddress senderAddress;
     
     @Before
     public void setup() throws Exception
@@ -87,9 +89,10 @@ public class BroadcastListenerIntegrationTest
 
     private void stubPacketReception() throws IOException
     {
+        senderAddress = InetAddress.getByName(senderAddressName);
         broadcastPacket = new DatagramPacket(initialData, initialData.length);
         broadcastPacket.setPort(senderPort);
-        broadcastPacket.setAddress(serverAddress);
+        broadcastPacket.setAddress(senderAddress);
         doAnswer(setReceivedPacketTo(broadcastPacket)).when(receivesBroadcasts).receive(any(DatagramPacket.class));
     }
 
