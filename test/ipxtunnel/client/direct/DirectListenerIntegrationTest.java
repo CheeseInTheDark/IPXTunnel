@@ -9,8 +9,11 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.whenNew;
 import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.ConnectionDetails;
+import ipxtunnel.client.socketwrappers.PacketSender;
+import ipxtunnel.client.socketwrappers.PacketSenderFactory;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,15 +25,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({})
+@PrepareForTest({
+    DirectPacketListenerThreadFactory.class,
+    DirectPacketHandlerFactory.class,
+    PacketSenderFactory.class,
+    DatagramSocket.class,
+    PacketSender.class
+})
 public class DirectListenerIntegrationTest
 {
 
-    private DirectPacketListenerThreadFactory directPacketListenerThreadFactory;
+    private DirectPacketListenerThreadFactory directPacketListenerThreadFactory = new DirectPacketListenerThreadFactory();
 
     @Mock
     private DatagramSocket receivingSocket;
@@ -51,7 +61,7 @@ public class DirectListenerIntegrationTest
     private String senderAddressName = "1.1.1.2";
     
     @Before
-    public void setup() throws IOException
+    public void setup() throws Exception
     {
         MockitoAnnotations.initMocks(this);
         
@@ -62,6 +72,8 @@ public class DirectListenerIntegrationTest
         directPacket = new DatagramPacket(initialData, initialData.length);
         directPacket.setPort(senderPort);
         directPacket.setAddress(senderAddress);
+        
+        whenNew(DatagramSocket.class).withNoArguments().thenReturn(sendsToServer);
         
         doAnswer(setReceivedPacketTo(directPacket)).when(receivingSocket).receive(any(DatagramPacket.class));
     }
