@@ -1,4 +1,4 @@
-package ipxtunnel.client.tunnel;
+package ipxtunnel.client.delegates;
 
 import java.net.DatagramPacket;
 

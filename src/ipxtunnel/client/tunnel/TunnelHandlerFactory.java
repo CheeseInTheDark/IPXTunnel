@@ -1,5 +1,7 @@
 package ipxtunnel.client.tunnel;
 
+import ipxtunnel.client.delegates.NodeDelegates;
+
 public class TunnelHandlerFactory
 {
 

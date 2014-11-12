@@ -1,4 +1,5 @@
-package ipxtunnel.client.tunnel;
+package ipxtunnel.client.delegates;
+
 
 public class NodeDelegates
 {

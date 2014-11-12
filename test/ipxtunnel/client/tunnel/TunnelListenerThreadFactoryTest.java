@@ -3,6 +3,7 @@ package ipxtunnel.client.tunnel;
 import static ipxtunnel.thread.ThreadTest.runOneCycle;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import ipxtunnel.client.delegates.NodeDelegates;
 import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;

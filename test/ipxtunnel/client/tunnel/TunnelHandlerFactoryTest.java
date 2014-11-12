@@ -3,6 +3,7 @@ package ipxtunnel.client.tunnel;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import ipxtunnel.client.delegates.NodeDelegates;
 
 import org.junit.Before;
 import org.junit.Test;

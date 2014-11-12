@@ -5,6 +5,8 @@ import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import ipxtunnel.client.delegates.NodeDelegate;
+import ipxtunnel.client.delegates.NodeDelegates;
 import ipxtunnel.client.injectors.PacketUnwrapper;
 import ipxtunnel.common.IPXPacketUnpacker;
 

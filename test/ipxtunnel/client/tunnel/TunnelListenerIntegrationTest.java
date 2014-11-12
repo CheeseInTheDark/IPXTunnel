@@ -13,6 +13,8 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import ipxtunnel.answers.PacketAnswer;
+import ipxtunnel.client.delegates.NodeDelegate;
+import ipxtunnel.client.delegates.NodeDelegates;
 import ipxtunnel.client.middleman.MiddleManThread;
 
 import java.net.DatagramPacket;

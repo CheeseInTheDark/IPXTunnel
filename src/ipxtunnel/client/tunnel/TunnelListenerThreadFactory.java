@@ -2,6 +2,7 @@ package ipxtunnel.client.tunnel;
 
 import java.net.DatagramSocket;
 
+import ipxtunnel.client.delegates.NodeDelegates;
 import ipxtunnel.client.middleman.MiddleMan;
 import ipxtunnel.client.middleman.MiddleManFactory;
 import ipxtunnel.client.middleman.MiddleManThread;

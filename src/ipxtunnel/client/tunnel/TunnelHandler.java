@@ -3,6 +3,7 @@ package ipxtunnel.client.tunnel;
 import java.net.DatagramPacket;
 import java.net.UnknownHostException;
 
+import ipxtunnel.client.delegates.NodeDelegates;
 import ipxtunnel.client.injectors.PacketUnwrapper;
 import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.common.IPXPacketUnpacker;
