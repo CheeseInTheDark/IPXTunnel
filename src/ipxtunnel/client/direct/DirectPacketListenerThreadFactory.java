@@ -20,7 +20,7 @@ public class DirectPacketListenerThreadFactory
     public MiddleManThread construct(DatagramSocket receivingSocket, ConnectionDetails serverConnectionDetails) throws SocketException
     {
         PacketListener packetListener = packetListenerFactory.construct(receivingSocket);
-        PacketHandler packetHandler = directPacketHandlerFactory.construct(serverConnectionDetails);
+        PacketHandler packetHandler = directPacketHandlerFactory.construct(serverConnectionDetails, receivingSocket.getLocalPort());
         MiddleMan middleMan = middleManFactory.construct(packetListener, packetHandler);
         
         return new MiddleManThread(middleMan);

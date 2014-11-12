@@ -2,6 +2,7 @@ package ipxtunnel.client.direct;
 
 import static ipxtunnel.answers.EndOfThreadTestAnswer.stopThread;
 import static ipxtunnel.answers.PacketAnswer.setReceivedPacketTo;
+import static ipxtunnel.matchers.PacketDataMatcher.packetWithData;
 import static ipxtunnel.matchers.PacketDestinationMatcher.packetWithDestination;
 import static ipxtunnel.thread.ThreadTest.runThreadAndWaitForDeath;
 import static org.hamcrest.Matchers.is;
@@ -14,16 +15,19 @@ import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketSender;
 import ipxtunnel.client.socketwrappers.PacketSenderFactory;
+import ipxtunnel.matchers.PacketDataMatcher;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -44,6 +48,7 @@ public class DirectListenerIntegrationTest
 
     @Mock
     private DatagramSocket receivingSocket;
+    private int receivingPort = 4;
     
     @Mock
     private DatagramSocket sendsToServer;
@@ -56,6 +61,7 @@ public class DirectListenerIntegrationTest
     
     private DatagramPacket directPacket;
     private byte[] initialData = new byte[] {0x0A};
+    private byte[] expectedData = new byte[] {0x0A, 0x01, 0x01, 0x01, 0x01, 0x02, 0x00, 0x05, 0x00, 0x04};
     private int senderPort = 5;
     private InetAddress senderAddress;
     private String senderAddressName = "1.1.1.2";
@@ -68,13 +74,20 @@ public class DirectListenerIntegrationTest
         serverAddress = InetAddress.getByName(serverAddressName);
         serverConnectionDetails = new ConnectionDetails(serverAddress, serverPort);
         
+        Mockito.when(receivingSocket.getLocalPort()).thenReturn(receivingPort);
+        
+        stubPacket();
+        
+        whenNew(DatagramSocket.class).withNoArguments().thenReturn(sendsToServer);
+        
+    }
+    
+    private void stubPacket() throws IOException
+    {
         senderAddress = InetAddress.getByName(senderAddressName);
         directPacket = new DatagramPacket(initialData, initialData.length);
         directPacket.setPort(senderPort);
         directPacket.setAddress(senderAddress);
-        
-        whenNew(DatagramSocket.class).withNoArguments().thenReturn(sendsToServer);
-        
         doAnswer(setReceivedPacketTo(directPacket)).when(receivingSocket).receive(any(DatagramPacket.class));
     }
     
@@ -87,5 +100,16 @@ public class DirectListenerIntegrationTest
         runThreadAndWaitForDeath(directPacketListenerThread);
         
         verify(sendsToServer).send(argThat(is(packetWithDestination(serverAddress, serverPort))));
+    }
+    
+    @Test
+    public void shouldPopulatePacketWithMetadata() throws IOException, InterruptedException
+    {
+        MiddleManThread directPacketListenerThread = directPacketListenerThreadFactory.construct(receivingSocket, serverConnectionDetails);
+        doAnswer(stopThread(directPacketListenerThread)).when(sendsToServer).send(any(DatagramPacket.class));
+        
+        runThreadAndWaitForDeath(directPacketListenerThread);
+        
+        verify(sendsToServer).send(argThat(is(packetWithData(expectedData))));
     }
 }

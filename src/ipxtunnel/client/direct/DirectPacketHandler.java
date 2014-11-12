@@ -12,17 +12,18 @@ public class DirectPacketHandler implements PacketHandler
 {
 
     private PacketSender sender;
-//    private DirectPacketInjector injector;
+    private DirectPacketInjector injector;
     
-    public DirectPacketHandler(PacketSender sender)
+    public DirectPacketHandler(PacketSender sender, DirectPacketInjector injector)
     {
         this.sender = sender;
+        this.injector = injector;
     }
 
     @Override
     public void handle(DatagramPacket packet)
     {
-//        injector.inject(packet);
+        injector.inject(packet);
         try
         {
             sender.send(packet);

@@ -28,6 +28,8 @@ public class DirectPacketHandlerFactoryTest
     
     @Mock
     private ConnectionDetails serverConnectionDetails;
+
+    private int receivingPort = 3;
     
     @Before
     public void setup()
@@ -38,7 +40,7 @@ public class DirectPacketHandlerFactoryTest
     @Test
     public void shouldConstructPacketHandler() throws SocketException
     {
-        DirectPacketHandler handler = underTest.construct(serverConnectionDetails);
+        DirectPacketHandler handler = underTest.construct(serverConnectionDetails, receivingPort);
         
         assertThat(handler, is(notNullValue()));
     }

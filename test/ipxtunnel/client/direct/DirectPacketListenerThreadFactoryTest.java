@@ -34,7 +34,8 @@ public class DirectPacketListenerThreadFactoryTest
     
     @Mock
     private DatagramSocket receivingSocket;
-
+    private int receivingPort = 4;
+    
     @Mock
     private ConnectionDetails serverConnectionDetails;
     
@@ -60,13 +61,15 @@ public class DirectPacketListenerThreadFactoryTest
     public void setup()
     {
         MockitoAnnotations.initMocks(this);
+        
+        when(receivingSocket.getLocalPort()).thenReturn(receivingPort);
     }
     
     @Test
     public void shouldCreateDirectPacketListenerThread() throws InterruptedException, IOException
     {
         when(packetListenerFactory.construct(receivingSocket)).thenReturn(packetListener);
-        when(directPacketHandlerFactory.construct(serverConnectionDetails)).thenReturn(directPacketHandler);
+        when(directPacketHandlerFactory.construct(serverConnectionDetails, receivingPort)).thenReturn(directPacketHandler);
         when(middleManFactory.construct(packetListener, directPacketHandler)).thenReturn(directPacketMiddleMan);
         
         MiddleManThread thread = underTest.construct(receivingSocket, serverConnectionDetails);
