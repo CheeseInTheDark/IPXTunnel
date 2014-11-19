@@ -1,12 +1,10 @@
 package ipxtunnel.client.direct;
 
-import static org.mockito.Mockito.verify;
 import ipxtunnel.client.injectors.DirectPacketInjector;
 import ipxtunnel.client.socketwrappers.PacketSender;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.UnknownHostException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
 
 public class DirectPacketHandlerTest
 {

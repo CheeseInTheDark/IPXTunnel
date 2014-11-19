@@ -1,9 +1,6 @@
 package ipxtunnel.client.direct;
 
 import static ipxtunnel.thread.ThreadTest.runOneCycle;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import ipxtunnel.client.middleman.MiddleMan;
@@ -12,20 +9,15 @@ import ipxtunnel.client.middleman.MiddleManThread;
 import ipxtunnel.client.properties.ConnectionDetails;
 import ipxtunnel.client.socketwrappers.PacketListener;
 import ipxtunnel.client.socketwrappers.PacketListenerFactory;
-import ipxtunnel.thread.ThreadTest;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
 
 public class DirectPacketListenerThreadFactoryTest
 {

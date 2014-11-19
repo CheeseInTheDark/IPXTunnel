@@ -1,12 +1,11 @@
 package ipxtunnel.client.direct;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.UnknownHostException;
-
 import ipxtunnel.client.injectors.DirectPacketInjector;
 import ipxtunnel.client.middleman.PacketHandler;
 import ipxtunnel.client.socketwrappers.PacketSender;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
 
 public class DirectPacketHandler implements PacketHandler
 {

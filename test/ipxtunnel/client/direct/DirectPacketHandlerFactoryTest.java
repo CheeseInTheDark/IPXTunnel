@@ -3,21 +3,13 @@ package ipxtunnel.client.direct;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.Mockito.when;
+import ipxtunnel.client.properties.ConnectionDetails;
 
 import java.net.SocketException;
 
-import ipxtunnel.client.middleman.PacketHandler;
-import ipxtunnel.client.properties.ConnectionDetails;
-import ipxtunnel.client.socketwrappers.PacketSender;
-import ipxtunnel.client.socketwrappers.PacketSenderFactory;
-
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 
